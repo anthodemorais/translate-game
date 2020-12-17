@@ -1,5 +1,6 @@
 const express = require('express'),
-      database = require('./database/database');
+      database = require('./database/database'),
+      wordsRoutes = require('./routes/Words');
 
 const app = express(),
       server = require('http').createServer(app);
@@ -14,5 +15,7 @@ app.use((request, response, next) => {
         response.status(500).send("Server error : can't connect to DB")
     })
 })
+
+app.use(wordsRoutes)
 
 server.listen(3000)

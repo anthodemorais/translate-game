@@ -33,6 +33,16 @@ module.exports = {
         })
     },
 
+    countWords: () => {
+        return new Promise((resolve, reject) => {
+            client.db('Words').collection('French').countDocuments()
+            .then((n) => {
+                resolve(n)
+            })
+            .catch(reject)
+        })
+    },
+
     insertWordsFromFile: (path) => {
         return new Promise((resolve, reject) => {
             let words = fs.readFileSync(path, 'utf-8')
