@@ -1,6 +1,10 @@
+const { getRandom, translateText } = require('../helpers');
+
 const express = require('express'),
       router = express.Router(),
       database = require('../database/database');
+
+require('dotenv').config()
 
 // save words to not reload words every time
 let words = []
@@ -12,29 +16,40 @@ router.get('/word', (req, res) => {
         database.getWords()
         .then((data) => {
             words = data
-
-            let random = previous
-            while (random === previous) {
-                random = Math.floor(Math.random() * data.length);
-            }
+            
+            let random = getRandom(data.length, previous)
             previous = random
+            const word = words[random].word
 
-            res.status(200).send({ word: words[random] })
+            translateText(word)
+            .then((text) => {
+                res.status(200).send({ word, translated: text })
+            })
+            .catch((e) => {
+                console.log(e)
+                res.status(500).send({ error: "Can't get word" })
+            })
         })
-        .catch(() => {
+        .catch((e) => {
+            console.log(e)
             res.status(500).send({ error: "Can't get words" })
         })
     }
     else {
         // if words are saved, check if words were added and load them if yes (after sending a response)
-        let random = previous
-        while (random === previous) {
-            random = Math.floor(Math.random() * words.length);
-        }
+        let random = getRandom(data.length, previous)
         previous = random
-        
-        res.status(200).send({ word: words[random] })
+        const word = words[random].word
 
+        translateText(word)
+        .then((text) => {
+            res.status(200).send({ word, translated: text })
+        })
+        .catch((e) => {
+            console.log(e)
+            res.status(500).send({ error: "Can't get word" })
+        })
+        
         database.countWords()
         .then((count) => {
             if (words.length !== count) {
