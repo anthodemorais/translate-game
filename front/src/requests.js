@@ -4,13 +4,12 @@ const fetchWord = () => {
     return new Promise((resolve, reject) => {
         fetch(`${baseUrl}/word`)
         .then((res) => {
-            console.log(res)
             res.json().then((data) => {
                 if (data.hasOwnProperty('error')) {
                     reject()
                 }
                 else {
-                    resolve({ wordToFind: data.word, answer: data.translation })
+                    resolve({ wordToFind: data.word, answer: data.translated })
                 }
             })
             .catch((e) => {
