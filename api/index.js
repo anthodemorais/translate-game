@@ -1,5 +1,6 @@
 const express = require('express'),
       database = require('./database/database'),
+      cors = require('cors'),
       wordsRoutes = require('./routes/Words');
 
 const app = express(),
@@ -15,6 +16,8 @@ app.use((request, response, next) => {
         response.status(500).send("Server error : can't connect to DB")
     })
 })
+
+app.use(cors())
 
 app.use(wordsRoutes)
 

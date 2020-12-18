@@ -11,11 +11,13 @@ function App() {
 
   function getWord() {
     fetchWord()
-    .then(( { wordToFind, answer, rand } ) => {
+    .then(( { wordToFind, answer } ) => {
       setWord(wordToFind)
       setTranslation(answer)
     })
-    .catch(console.log)
+    .catch(() => {
+      swal('Oops...', 'Impossible de jouer pour le moment', 'error')
+    })
   }
 
   function checkAnswer(answer) {
