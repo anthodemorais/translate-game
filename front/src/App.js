@@ -1,7 +1,8 @@
 import React, { useEffect, useState } from 'react';
+import swal from 'sweetalert';
 import { fetchWord } from './requests';
-import './App.css';
 import Input from './components/input';
+import './App.css';
 
 function App() {
   const [word, setWord] = useState('')
@@ -20,10 +21,28 @@ function App() {
   function checkAnswer(answer) {
     if (answer.toLowerCase() === translation.toLowerCase()) {
       setPoints(points + 1)
+
+      if (points === 20) {
+        swal('Vous avez gagné !', 'Une partie va recommencer', 'success')
+        setPoints(10)
+      }
+      else {
+        swal('Bravo !', 'Vous avez gagné un point. À 20 points, vous aurez gagné !', 'success')
+      }
     }
     else {
       setPoints(points - 1)
+
+      if (points === 0) {
+        swal('Vous avez perdu...', 'Une partie va recommencer', 'error')
+        setPoints(10)
+      }
+      else {
+        swal(`La réponse était "${translation}"`, 'Vous avez perdu un point. À 0 point, vous aurez perdu...', 'error')
+      }
     }
+
+    getWord()
   }
 
   useEffect(() => {
@@ -37,7 +56,7 @@ function App() {
         <strong className="wordToFind">{word}</strong>
         <strong>en Anglais :</strong>
         <Input translation={translation} checkAnswer={(answer) => checkAnswer(answer)} />
-        <p className="points">
+        <p className="card points">
           Points : {points}
         </p>
       </>}

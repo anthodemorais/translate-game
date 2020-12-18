@@ -17,18 +17,21 @@ function Input(props) {
     <div className="Input">
       <form onSubmit={(e) => answerSubmited(e)}>
         <div>
-            <label for="answer">Votre réponse : </label>
+            <label for="answer" className="form-label">Votre réponse : </label>
             <input 
                 type="text"
                 name="answer"
                 value={answer}
+                className="form-control mb-3"
                 maxLength={props.translation.length}
                 onChange={(e) => setAnswer(e.target.value)}
             />
         </div>
-        <span>Aide : le mot commence par {props.translation.charAt(0)} et fait {props.translation.length} caractères de long</span>
-        <span>{answer.length} / {props.translation.length} caractères utilisés</span>
-        <input type="submit" value="Valider ma réponse" />
+        <span className="alert alert-success">
+          Aide : le mot commence par {props.translation.charAt(0)} et fait {props.translation.length} caractères de long
+        </span>
+        <span className="mb-3">{answer.length} / {props.translation.length} caractères utilisés</span>
+        <input type="submit" className="btn btn-primary" value="Valider ma réponse" />
       </form>
     </div>
   );
