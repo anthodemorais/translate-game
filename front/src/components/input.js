@@ -17,7 +17,7 @@ function Input(props) {
     <div className="Input">
       <form onSubmit={(e) => answerSubmited(e)}>
         <div>
-            <label for="answer" className="form-label">Votre réponse : </label>
+            <label htmlFor="answer" className="form-label">Votre réponse : </label>
             <input 
                 type="text"
                 name="answer"

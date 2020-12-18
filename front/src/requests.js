@@ -6,7 +6,12 @@ const fetchWord = () => {
         .then((res) => {
             console.log(res)
             res.json().then((data) => {
-                resolve({ wordToFind: data.word, answer: data.translation })
+                if (data.hasOwnProperty('error')) {
+                    reject()
+                }
+                else {
+                    resolve({ wordToFind: data.word, answer: data.translation })
+                }
             })
             .catch((e) => {
                 console.log(e)

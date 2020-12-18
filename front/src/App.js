@@ -53,7 +53,7 @@ function App() {
 
   return (
     <div className="App">
-      {word !== '' && <>
+      {(word && word !== '') && <>
         <strong>Trouvez la traduction du mot :</strong>
         <strong className="wordToFind">{word}</strong>
         <strong>en Anglais :</strong>
