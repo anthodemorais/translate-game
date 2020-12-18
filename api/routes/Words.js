@@ -37,7 +37,7 @@ router.get('/word', (req, res) => {
     }
     else {
         // if words are saved, check if words were added and load them if yes (after sending a response)
-        let random = getRandom(data.length, previous)
+        let random = getRandom(word.length, previous)
         previous = random
         const word = words[random].word
 
